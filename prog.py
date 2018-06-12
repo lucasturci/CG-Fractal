@@ -55,14 +55,17 @@ def keyPressEvent(key, x, y) :
 
 	if key == '\x1b':
 		exit(0) # Sai do programa se apertar ESC
+
+	key = key.decode('utf-8')
+	print(key)
 	
 	if (key == 'q'):
 		angle_x += increment # Rotaciona em x no sentido anti horario
-	elif (key == 'a'):
+	elif (key == "a"):
 		angle_x -= increment # Rotaciona em x no sentido horario
 	elif (key == 'w'):
 		angle_y += increment # Rotaciona em y no sentido anti horario
-	elif (key == 's'):
+	elif (key == "s"):
 		angle_y -= increment # Rotaciona em y no sentido horario
 	elif (key == 'e'):
 		angle_z += increment # Rotaciona em z no sentido anti horario
@@ -110,7 +113,7 @@ def display():
 
 
 	# Define as configuracoes do observador
-	gluLookAt(1, 1, 1, 0, 0, 0, 0, 1, 0)
+	gluLookAt(1, 0, 0, 0, 0, 0, 0, 1, 0)
 
 	glClear(GL_COLOR_BUFFER_BIT)
 
@@ -152,7 +155,7 @@ print("\t\t(+) (shift + =) --> aumenta a escala")
 print("\t\t(-) --> diminui a escala\n")
 
 
-raw_input("Pressione ENTER para continuar")
+input("Pressione ENTER para continuar")
 
 init()
 glutDisplayFunc(display)
