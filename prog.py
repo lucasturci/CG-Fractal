@@ -22,22 +22,18 @@ def init():
 	glClearColor(1, 1, 1, 0)
 
 def _drawFractal(n, x, y, z):
-	global angle_x, angle_y, angle_z, zoom
+	global N
+
+	#print(x + 1/(3.0**n))
+	
 	if n > N:
 		# desenha o cubo pequeno
 		glPushMatrix()
+		#print "%f %f %f"%(x, y, z)
 		glTranslatef(x, y, z)
 
-		# Rotaciona o objeto
-		glRotatef(angle_x, 1, 0, 0)
-		glRotatef(angle_y, 0, 1, 0)
-		glRotatef(angle_z, 0, 0, 1)
+		glutSolidCube(1/(3.0**N))
 
-		# Escala o objeto
-		glScalef(zoom, zoom, zoom)
-
-		glutSolidCube(1.0/(3**N))
-		
 		glPopMatrix()
 		return
 
@@ -45,7 +41,8 @@ def _drawFractal(n, x, y, z):
 		for _y in range(-1, 2):
 			for _z in range(-1, 2):
 				if(_x**2 + _y**2 + _z**2 > 1):
-					_drawFractal(n+1, x + _x/3, y + _y/3, z + _z/3);
+					#print "%f %f %f"%(x + _x/(3.0**n), y + _y/(3.0**n), z + _z/(3.0**n))
+					_drawFractal(n+1, x + _x/(3.0**n), y + _y/(3.0**n), z + _z/(3.0**n));
 
 
 
@@ -89,12 +86,11 @@ def keyPressEvent(key, x, y) :
 	else:
 		pass
 
-	print(key)
-	if (key == 'b\'+\''):
+	if (key == '+'):
 		zoom += 0.1 # Aumenta a escala
 		if (zoom > 4):
-			zoom = 10 # valor maximo de escala		
-	elif (key == 'b\'-\''):
+			zoom = 4 # valor maximo de escala		
+	elif (key == '-'):
 		zoom -= 0.1 # Diminui a escala
 		if (zoom < 0.1):
 			zoom = 0.1 # valor minimo de escala
@@ -110,11 +106,11 @@ def display():
 	glMatrixMode(GL_PROJECTION) # Define que ira trabalhar com a matriz de projecao
 	glLoadIdentity() # Carrega a matriz identidade
 
-	glOrtho(-20, 20, -20, 20, -200, 200)
+	glOrtho(-5, 5, -5, 5, -5, 5)
 
 
 	# Define as configuracoes do observador
-	gluLookAt(15, 15, 15, 0, 0, 0, 0, 1, 0)
+	gluLookAt(1, 1, 1, 0, 0, 0, 0, 1, 0)
 
 	glClear(GL_COLOR_BUFFER_BIT)
 
@@ -125,6 +121,15 @@ def display():
 	glLoadIdentity()
 	glColor3f(0.0, 0.0, 0.0)
 
+
+	# Rotaciona o objeto
+	glRotatef(angle_x, 1, 0, 0)
+	glRotatef(angle_y, 0, 1, 0)
+	glRotatef(angle_z, 0, 0, 1)
+
+	# Escala o objeto
+	glScalef(zoom, zoom, zoom)
+	
 	drawFractal()
 
 	# glutSolidCube(10.0) # Desenha um cubo de arame na cor verde
@@ -147,7 +152,7 @@ print("\t\t(+) (shift + =) --> aumenta a escala")
 print("\t\t(-) --> diminui a escala\n")
 
 
-input("Pressione ENTER para continuar")
+raw_input("Pressione ENTER para continuar")
 
 init()
 glutDisplayFunc(display)
