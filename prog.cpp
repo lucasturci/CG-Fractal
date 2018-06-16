@@ -29,12 +29,15 @@ void init() {
 	glClearColor(0, 0, 0, 0);
 
 
-	glShadeModel(GL_SMOOTH); // modelo de gouraud
+	glShadeModel (GL_SMOOTH); // modelo de gouraud
 
 	GLfloat luz_ambiente[4] = {0.2, 0.2, 0.2, 1.0}; 
 	GLfloat luz_difusa[4] = {0.7, 0.7, 0.7, 1.0}; // cor 
 	GLfloat luz_especular[4] = {1.0, 1.0, 1.0, 1.0}; // brilho 
-	GLfloat posicao_luz[4] = {0.0, 50.0, 50.0, 1.0};
+	// GLfloat posicao_luz[4] = {20.0, 0.0, 0.0, 1.0};
+	GLfloat posicao_luz0[4] = {10.0, 0.0, 0.0, 1.0};
+	GLfloat posicao_luz1[4] = {0.0, 10.0, 0.0, 1.0};
+	GLfloat posicao_luz2[4] = {0.0, 0.0, 10.0, 1.0};
 
 	GLfloat especularidade[4] = {1.0, 1.0, 1.0, 1.0}; // Capacidade de brilho do material
 	GLint espec_material = 60;
@@ -49,17 +52,30 @@ void init() {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, luz_ambiente); 
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, luz_difusa);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, luz_especular);
-	glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+	glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz0);
+
+	// Define os parâmetros da luz de número 1
+	glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente); 
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
+	glLightfv(GL_LIGHT1, GL_POSITION, posicao_luz1);
+
+	// Define os parâmetros da luz de número 2
+	glLightfv(GL_LIGHT2, GL_AMBIENT, luz_ambiente); 
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, luz_difusa);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, luz_especular);
+	glLightfv(GL_LIGHT2, GL_POSITION, posicao_luz2);
 
 	// Habilita a cor do material pela cor atual
 	glEnable(GL_COLOR_MATERIAL);
 	// Habilita iluminação
 	glEnable(GL_LIGHTING);  
-	// Habilita a luz 0
+	// Habilita as luzes 0 1 e 2
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
 	// Habilita o depth-buffering
 	glEnable(GL_DEPTH_TEST);
-
 }
 
 void keyPressEvent(GLubyte key, GLint x, GLint y) {
@@ -134,7 +150,7 @@ void display() {
 
 	// Carrega a matriz identidade
 	glLoadIdentity();
-	glColor3f(0.0, 0.0, 1.0);
+	glColor3f(1.0, 1.0, 1.0);
 
 
 	// Rotaciona o objeto
