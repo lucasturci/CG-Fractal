@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+#include <GLUT/glut.h>
 #include <cstdlib>
 #include <cstdio>
 #include <math.h>
@@ -36,8 +36,8 @@ void init() {
 	GLfloat luz_especular[4] = {1.0, 1.0, 1.0, 1.0}; // brilho 
 	// GLfloat posicao_luz[4] = {20.0, 0.0, 0.0, 1.0};
 	GLfloat posicao_luz0[4] = {10.0, 0.0, 0.0, 1.0};
-	GLfloat posicao_luz1[4] = {0.0, 10.0, 0.0, 1.0};
-	GLfloat posicao_luz2[4] = {0.0, 0.0, 10.0, 1.0};
+	// GLfloat posicao_luz1[4] = {0.0, 10.0, 0.0, 1.0};
+	// GLfloat posicao_luz2[4] = {0.0, 0.0, 10.0, 1.0};
 
 	GLfloat especularidade[4] = {1.0, 1.0, 1.0, 1.0}; // Capacidade de brilho do material
 	GLint espec_material = 60;
@@ -55,16 +55,16 @@ void init() {
 	glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz0);
 
 	// Define os parâmetros da luz de número 1
-	glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente); 
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
-	glLightfv(GL_LIGHT1, GL_POSITION, posicao_luz1);
+	// glLightfv(GL_LIGHT1, GL_AMBIENT, luz_ambiente); 
+	// glLightfv(GL_LIGHT1, GL_DIFFUSE, luz_difusa);
+	// glLightfv(GL_LIGHT1, GL_SPECULAR, luz_especular);
+	// glLightfv(GL_LIGHT1, GL_POSITION, posicao_luz1);
 
 	// Define os parâmetros da luz de número 2
-	glLightfv(GL_LIGHT2, GL_AMBIENT, luz_ambiente); 
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, luz_difusa);
-	glLightfv(GL_LIGHT2, GL_SPECULAR, luz_especular);
-	glLightfv(GL_LIGHT2, GL_POSITION, posicao_luz2);
+	// glLightfv(GL_LIGHT2, GL_AMBIENT, luz_ambiente); 
+	// glLightfv(GL_LIGHT2, GL_DIFFUSE, luz_difusa);
+	// glLightfv(GL_LIGHT2, GL_SPECULAR, luz_especular);
+	// glLightfv(GL_LIGHT2, GL_POSITION, posicao_luz2);
 
 	// Habilita a cor do material pela cor atual
 	glEnable(GL_COLOR_MATERIAL);
@@ -72,8 +72,8 @@ void init() {
 	glEnable(GL_LIGHTING);  
 	// Habilita as luzes 0 1 e 2
 	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHT2);
+	// glEnable(GL_LIGHT1);
+	// glEnable(GL_LIGHT2);
 	// Habilita o depth-buffering
 	glEnable(GL_DEPTH_TEST);
 }
@@ -141,12 +141,12 @@ void display() {
 	glOrtho(-5, 5, -5, 5, -5, 5);
 
 	// Define as configuracoes do observador
-	gluLookAt(1, 0, 0, 0, 0, 0, 0, 1, 0);
-
-	glClear(GL_COLOR_BUFFER_BIT);
+	gluLookAt(0, 0, 0, 4, 0, 0, 0, 1, 0);
 
 	// Define que ira trabalhar com a matriz de modelo/visao
 	glMatrixMode(GL_MODELVIEW);
+
+	glTranslatef(-1.0/(pot3[N]*2), -1.0/(pot3[N]*2), -1.0/(pot3[N]*2)); // faz centralizar na origem
 
 	// Carrega a matriz identidade
 	glLoadIdentity();
