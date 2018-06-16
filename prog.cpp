@@ -25,7 +25,41 @@ void init() {
 	glutInitWindowSize(700, 700);
 	glutCreateWindow("Fractal");
 
-	glClearColor(1, 1, 1, 0);
+	// glClearColor(1, 1, 1, 0);
+	glClearColor(0, 0, 0, 0);
+
+
+	glShadeModel(GL_SMOOTH); // modelo de gouraud
+
+	GLfloat luz_ambiente[4] = {0.2, 0.2, 0.2, 1.0}; 
+	GLfloat luz_difusa[4] = {0.7, 0.7, 0.7, 1.0}; // cor 
+	GLfloat luz_especular[4] = {1.0, 1.0, 1.0, 1.0}; // brilho 
+	GLfloat posicao_luz[4] = {0.0, 50.0, 50.0, 1.0};
+
+	GLfloat especularidade[4] = {1.0, 1.0, 1.0, 1.0}; // Capacidade de brilho do material
+	GLint espec_material = 60;
+
+	glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
+	// Define a concentração do brilho
+	glMateriali(GL_FRONT, GL_SHININESS, espec_material);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luz_ambiente);
+
+	// Define os parâmetros da luz de número 0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luz_ambiente); 
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luz_difusa);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luz_especular);
+	glLightfv(GL_LIGHT0, GL_POSITION, posicao_luz);
+
+	// Habilita a cor do material pela cor atual
+	glEnable(GL_COLOR_MATERIAL);
+	// Habilita iluminação
+	glEnable(GL_LIGHTING);  
+	// Habilita a luz 0
+	glEnable(GL_LIGHT0);
+	// Habilita o depth-buffering
+	glEnable(GL_DEPTH_TEST);
+
 }
 
 void keyPressEvent(GLubyte key, GLint x, GLint y) {
@@ -100,7 +134,7 @@ void display() {
 
 	// Carrega a matriz identidade
 	glLoadIdentity();
-	glColor3f(0.0, 0.0, 0.0);
+	glColor3f(0.0, 0.0, 1.0);
 
 
 	// Rotaciona o objeto
