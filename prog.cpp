@@ -1,4 +1,4 @@
-#include <GLUT/glut.h>
+#include <GL/glut.h>
 #include <cstdlib>
 #include <cstdio>
 #include <math.h>
